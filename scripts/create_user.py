@@ -23,9 +23,9 @@ async def create_admin_user():
     try:
         # 创建管理员用户
         await User.create(
-            username="admin",
+            username="user",
             password_hash=hash_password("123456"),
-            email="admin@example.com",
+            email="users@example.com",
             is_active=True,
             is_superadmin=True
         )

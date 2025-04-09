@@ -1,11 +1,13 @@
-from fastapi import APIRouter, Request
+from fastapi import APIRouter, Request, HTTPException, status
 
 from app.core.exceptions.auth import MissingTokenError
-from app.schemas.auth import TokenResponse,RefreshTokenResponse
+from app.schemas.auth import TokenResponse, RefreshTokenResponse, UserRegisterRequest # 导入新的 schema
 from app.services.auth import AuthService
+from app.services.user import UserService # 导入 UserService
 
 router = APIRouter()
 auth_service = AuthService()
+user_service = UserService() # 创建 UserService 实例
 
 
 @router.post("/login", response_model=TokenResponse)
@@ -90,6 +92,23 @@ async def refresh_token(request: Request) -> RefreshTokenResponse:
 
     # 验证令牌并创建新令牌
     return await AuthService.refresh_token(token)
+
+
+
+
+@router.post("/register", response_model=TokenResponse, status_code=status.HTTP_201_CREATED)
+async def register_user(user_register_data: UserRegisterRequest) -> TokenResponse:
+    """
+    用户注册接口
+    """
+    try:
+        user = await user_service.create_user(user_register_data) # 使用 UserService 创建用户
+        return await AuthService.login(user.username, user_register_data.password) # 注册成功后直接登录并返回 token
+    except ValueError as e:
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST,
+            detail=str(e)
+        )    
 
 
 @router.post("/me")

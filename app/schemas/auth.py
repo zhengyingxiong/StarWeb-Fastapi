@@ -1,4 +1,4 @@
-from pydantic import BaseModel
+from pydantic import BaseModel, Field
 
 class TokenResponse(BaseModel):
     """令牌响应模型"""
@@ -25,3 +25,12 @@ class RefreshTokenRequest(BaseModel):
 class TokenRequest(BaseModel):
     """令牌请求模型"""
     token: str
+
+
+
+
+class UserRegisterRequest(BaseModel):
+    """用户注册请求模型"""
+    username: str = Field(..., min_length=3, max_length=50, description="用户名")
+    email: str = Field(..., description="邮箱地址") # 可以添加邮箱格式验证
+    password: str = Field(..., min_length=6, description="密码") # 可以添加密码复杂度验证
