@@ -1,0 +1,32 @@
+body {
+    background: linear-gradient(135deg, #2a2c30 0%, #1d1e20 100%);
+    color: #d8dfe2;
+  }
+  
+  .stApp {
+    background: linear-gradient(135deg, #2a2c30 0%, #1d1e20 100%);
+    color: #d8dfe2;
+  }
+  
+  .stButton button {
+    background: linear-gradient(45deg, #1d1e20 0%, #3a3c40 100%);
+    color: #b0bec5;
+    border: none;
+  }
+  
+  .stForm label {
+    color: #d8dfe2;
+  }
+  
+  .stButton button:hover {
+    background: linear-gradient(45deg, #0f1012 0%, #2a2c30 100%);
+  }
+  
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    text-align: center;
+  }

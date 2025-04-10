@@ -19,8 +19,8 @@ orjson
 passlib
 pillow
 pyasn1
-pydantic
-pydantic_core
+pydantic==2.8.2
+pydantic_core==2.20.1
 pypika-tortoise
 python-jose
 python-multipart

@@ -4,14 +4,20 @@ import json
 import time
 import random
 
+
+from styles.common import HTML_Template, MainCSS
+
+st.html(HTML_Template.base_style.substitute(css=MainCSS.initial_page_styles))
+
+
 BASE_API_URL = "http://localhost:8000/api"  # 请确认后端实际端口
 
-st.set_page_config(
-    page_title="用户管理应用",
-    page_icon="🔑",
-    layout="wide",
-    initial_sidebar_state="expanded",
-)
+# st.set_page_config(
+#     page_title="用户管理应用",
+#     page_icon="🔑",
+#     layout="wide",
+#     initial_sidebar_state="expanded",
+# )
 
 # --- Session State 初始化 ---
 if 'access_token' not in st.session_state:
@@ -326,33 +332,37 @@ class AuthManager:
             else:
                 st.error(f"❌ 添加用户失败: {response['detail']}")
 
-# --- 主逻辑 ---
-auth_manager = AuthManager()
 
 
 
-home_page = st.Page(auth_manager.home_page, title="首页", icon="🏠")
-auth_page = st.Page(auth_manager.auth_page, title="认证", icon="🔐")
-logout_page = st.Page(auth_manager.logout_page, title="登出", icon="🚪")
-profile_page = st.Page(auth_manager.profile_page, title="个人资料", icon="👤")
-change_password_page = st.Page(auth_manager.change_password_page, title="修改密码", icon="🔑")
-admin_panel_page = st.Page(auth_manager.admin_panel_page, title="管理员面板", icon="📊")
+# # --- 主逻辑 ---
+# auth_manager = AuthManager()
 
 
-def get_nav_menu():
-    base_menu = {
-        "功能": [home_page],
-        "个人中心": [profile_page, change_password_page],
-        "账户管理": [logout_page],
-    }
-    if st.session_state.is_admin:
-        base_menu["管理员"] = [admin_panel_page]
-    return base_menu
 
-if check_login_status():
-    nav_menu = get_nav_menu()
-    nav = st.navigation(nav_menu, position="sidebar")
-    nav.run()
-else:
-    pg = st.navigation([auth_page])
-    pg.run()
+# home_page = st.Page(auth_manager.home_page, title="首页", icon="🏠")
+# auth_page = st.Page(auth_manager.auth_page, title="认证", icon="🔐")
+# logout_page = st.Page(auth_manager.logout_page, title="登出", icon="🚪")
+# profile_page = st.Page(auth_manager.profile_page, title="个人资料", icon="👤")
+# change_password_page = st.Page(auth_manager.change_password_page, title="修改密码", icon="🔑")
+# admin_panel_page = st.Page(auth_manager.admin_panel_page, title="管理员面板", icon="📊")
+
+
+
+# def get_nav_menu():
+#     base_menu = {
+#         "功能": [home_page],
+#         "个人中心": [profile_page, change_password_page],
+#         "账户管理": [logout_page],
+#     }
+#     if st.session_state.is_admin:
+#         base_menu["管理员"] = [admin_panel_page]
+#     return base_menu
+
+# if check_login_status():
+#     nav_menu = get_nav_menu()
+#     nav = st.navigation(nav_menu, position="sidebar")
+#     nav.run()
+# else:
+#     pg = st.navigation([auth_page])
+#     pg.run()
